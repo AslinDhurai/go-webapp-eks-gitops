@@ -5,7 +5,7 @@ replicaCount: 1
 image: 
   repository: aslindhurai/go-blog-app
   pullPolicy: IfNotPresent
-  tag: "29984361257"
+  tag: "29985112355"
 
 ingress:
   enabled: false

@@ -68,13 +68,6 @@ http://localhost:8080/home
 go test ./...
 ```
 
-If your environment has a read-only Go build cache, use a local cache:
-
-```bash
-mkdir -p .cache/go-build
-GOCACHE="$(pwd)/.cache/go-build" go test ./...
-```
-
 ## Build Binary
 
 ```bash
@@ -87,13 +80,13 @@ go build -o main .
 Build the image:
 
 ```bash
-docker build -t aslin-devops-website .
+docker build -t aslindhurai/go-blog-app .
 ```
 
 Run the container:
 
 ```bash
-docker run --rm -p 8080:8080 aslin-devops-website
+docker run --rm -p 8080:8080 aslindhurai/go-blog-app
 ```
 
 Then open:
@@ -101,15 +94,6 @@ Then open:
 ```text
 http://localhost:8080/home
 ```
-
-## Repository Notes
-
-The `.gitignore` is configured to keep local tooling and generated files out of the repository, including:
-
-- `.codex/`
-- `.agents/`
-- `.cache/`
-- compiled `main` binary
 
 To push this project to a new repository:
 

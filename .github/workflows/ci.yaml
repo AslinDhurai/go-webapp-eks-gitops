@@ -63,6 +63,28 @@ jobs:
       - name: Build and Push Action
         uses: docker/build-push-action@v6
         with:
-          context: ./Dockerfile
+          context: .
+          file: ./Dockerfile
           push: true
-          target: ${{ secrets.DOCKER_USERNAME }}/go-blog-app:latest }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/go-blog-app:${{ github.run_id }}
+
+  update-newtag-in-helm-chart:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+        with:
+          token: ${{ secrets.TOKEN }}
+
+      - name: Update tag in the Helm chart
+        run: |
+          sed -i 's/tag: .*/tag: "${{ github.run_id }}"/' helm/go-blog-app-chart/values.yaml
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.email "aslindhurai1@gmail.com"
+          git config --global user.name "Aslin Dhurai"
+          git add hel/go-blog-app-chart/values.yaml
+          git commit -m "Update tag in the Helm chart"
+          git push
